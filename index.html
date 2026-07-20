@@ -1,97 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Agenda 2026</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.png">
-    <style>
-        :root { --bg: #f8fafc; --primary: #065f46; --accent: #10b981; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
-        .card { width: 100%; max-width: 380px; background: white; padding: 20px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-        
-        /* Contenedor con marca de agua 2026 */
-        .img-box { position: relative; width: 100%; height: 160px; border-radius: 18px; margin-bottom: 20px; overflow: hidden; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .year-label { 
-            position: absolute; top: 10px; right: 10px; 
-            background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(5px);
-            padding: 5px 12px; border-radius: 8px; 
-            font-weight: 800; color: white; font-size: 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        h2 { margin: 0; font-size: 1.2rem; color: var(--primary); }
-        .nav-btn { background: var(--primary); border: none; color: white; padding: 8px 15px; border-radius: 10px; cursor: pointer; }
-        
-        .event { 
-            padding: 15px; background: #ecfdf5; border-radius: 15px; margin-bottom: 12px; 
-            border-left: 5px solid var(--accent); animation: pop 0.4s ease-out;
-            display: flex; flex-direction: column; gap: 5px;
-        }
-        @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .date { font-size: 0.75rem; color: var(--accent); font-weight: 800; letter-spacing: 0.5px; }
-        .title { font-weight: 600; font-size: 0.95rem; color: #064e3b; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b12">
+  <meta name="description" content="Agenda visual 2026 inspirada en una aventura galáctica.">
+  <title>Agenda Galáctica 2026</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+  <div class="stars stars-one" aria-hidden="true"></div>
+  <div class="stars stars-two" aria-hidden="true"></div>
 
-<div class="card">
-    <div class="img-box">
-        <div class="year-label">2026</div> <!-- Etiqueta transparente -->
-        <img id="mainImg" src="" alt="Mes">
-    </div>
-    <div class="header">
-        <button class="nav-btn" onclick="move(-1)">◀</button>
-        <h2 id="monthTitle">Enero</h2>
-        <button class="nav-btn" onclick="move(1)">▶</button>
-    </div>
-    <div class="list" id="list"></div>
-</div>
+  <main class="app-shell">
+    <section class="agenda-card" aria-label="Agenda 2026">
+      <header class="hero" id="hero">
+        <img id="mainImg" class="hero-image" src="img/1.jpg" alt="Imagen del mes de enero">
+        <div class="hero-shade" aria-hidden="true"></div>
 
-<script>
-    const calendarData = {
-        0: [["1", "Año Nuevo (Feriado)"]],
-        3: [["2", "Jueves Santo (Feriado)"], ["3", "Viernes Santo (Feriado)"]],
-        4: [["1", "Día del Trabajo (Feriado)"]],
-        5: [["7", "Día de la Bandera (Feriado)"], ["29", "San Pedro y San Pablo (Feriado)"]],
-        6: [["6", "Día del Maestro"], ["23", "Día Fuerza Aérea (Feriado)"], ["28", "Fiestas Patrias (Feriado)"], ["29", "Fiestas Patrias (Feriado)"]],
-        7: [["6", "Batalla de Junín (Feriado)"], ["30", "Santa Rosa de Lima (Feriado)"]],
-        8: [["7", "Día del Agente Inmobiliario"]],
-        9: [["5", "Día Mundial del Hábitat"], ["8", "Combate de Angamos (Feriado)"]],
-        10: [["1", "Todos los Santos (Feriado)"], ["8", "Día Mundial del Urbanismo"]],
-        11: [["8", "Inmaculada Concepción (Feriado)"], ["9", "Batalla de Ayacucho (Feriado)"], ["25", "Navidad (Feriado)"]]
-    };
+        <div class="topbar">
+          <div class="brand">
+            <img src="img/favicon.png" alt="" class="brand-icon">
+            <div>
+              <span class="brand-kicker">AGENDA</span>
+              <strong>GALÁCTICA</strong>
+            </div>
+          </div>
+          <span class="year-pill">2026</span>
+        </div>
 
-    const images = Array.from({length: 12}, (_, i) => `img/${i + 1}.jpg`);
-    let cur = 0;
-    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        <div class="hero-copy">
+          <p class="eyebrow">Calendario anual</p>
+          <h1 id="monthTitle">Enero</h1>
+          <p id="eventSummary" class="event-summary">1 evento este mes</p>
+        </div>
+      </header>
 
-    function render() {
-        const list = document.getElementById('list');
-        document.getElementById('monthTitle').innerText = months[cur];
-        document.getElementById('mainImg').src = images[cur];
-        list.innerHTML = '';
-        
-        if(calendarData[cur]) {
-            calendarData[cur].forEach(e => {
-                list.innerHTML += `
-                    <div class="event">
-                        <span class="date">${e[0]} de ${months[cur].toUpperCase()}</span>
-                        <span class="title">${e[1]}</span>
-                    </div>`;
-            });
-        } else {
-            list.innerHTML = '<div class="event" style="text-align:center; opacity:0.6;">Sin eventos este mes.</div>';
-        }
-    }
+      <section class="content-panel">
+        <div class="month-nav" aria-label="Navegación por meses">
+          <button class="nav-btn" id="prevBtn" type="button" aria-label="Mes anterior">
+            <span aria-hidden="true">←</span>
+          </button>
 
-    function move(d) {
-        cur = Math.max(0, Math.min(11, cur + d));
-        render();
-    }
-    render();
-</script>
+          <div class="month-center">
+            <span id="monthNumber">01 / 12</span>
+            <div class="progress-track" aria-hidden="true">
+              <span id="progressBar"></span>
+            </div>
+          </div>
+
+          <button class="nav-btn" id="nextBtn" type="button" aria-label="Mes siguiente">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <div class="section-heading">
+          <div>
+            <span class="mini-label">PRÓXIMAS FECHAS</span>
+            <h2>Eventos del mes</h2>
+          </div>
+          <span id="eventCount" class="count-badge">1</span>
+        </div>
+
+        <div class="event-list" id="list" aria-live="polite"></div>
+
+        <div class="month-dots" id="monthDots" aria-label="Seleccionar mes"></div>
+
+        <footer class="footer-note">
+          <span class="signal" aria-hidden="true"></span>
+          <span>Que la organización te acompañe.</span>
+        </footer>
+      </section>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
